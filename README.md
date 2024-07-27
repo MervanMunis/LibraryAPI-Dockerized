@@ -33,17 +33,18 @@ Swagger is an open-source tool for documenting APIs. It provides a user-friendly
 ## Project Structure
 The project is organized into several folders and files to maintain a clean and manageable structure. Here is an overview of the project structure:
 
-|-- Auth/
-|-- Controllers/
-|-- DTOs/
-|-- Data/
-|-- Entities/
-|-- Exceptions/
-|-- Migrations/
-|-- Services/
-|-- LibraryAPI/
-|   |-- AuthorImages/
-|   |-- BookImages/
+LibraryAPI/ <br>
+├── Auth/ <br>
+├── Controllers/ <br>
+├── DTOs/ <br>
+├── Data/ <br>
+├── Entities/ <br>
+├── Exceptions/ <br>
+├── Migrations/ <br>
+├── Services/ <br>
+├── LibraryAPI/ <br>
+│ ├── AuthorImages/ <br>
+│ ├── BookImages/ <br>
 
 ### Key Folders and Files
 - **Auth/**: Contains authentication-related files.
