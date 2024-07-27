@@ -1,0 +1,24 @@
+﻿version: '3.4'
+
+services:
+  libraryapi:
+    image: libraryapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__LibraryAPIContext=Server=sqlserver;Database=LibraryAPI;User=sa;Password=Master123!;
+      - Jwt__Key=b9T9j54dI4E9kR2lA1V3cG7xN0Q2zY8uJ5R7mS6hP4L8vX9qK2
+      - Jwt__Issuer=LibraryAPI
+      - Jwt__Audience=LibraryAPIUsers
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Master123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"

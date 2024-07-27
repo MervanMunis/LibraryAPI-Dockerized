@@ -1,0 +1,122 @@
+﻿# Ignore Visual Studio temporary files, build results, and
+# other common files related to the .NET project.
+
+## Ignore Visual Studio temporary files, build results, and
+## other common files.
+*.vs/
+*.DS_Store
+.vscode/
+*.code-workspace
+*.tmp
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+*._ReSharper.*
+ReSharper
+.vscode/
+.vscode/*
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+
+# Logs
+*.log
+logs/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# DotNet
+*.userprefs
+*.sln*
+*.db
+## Ignore .NET build results
+bin/
+obj/
+*.nuspec
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.psmdcp
+*.log
+# Mono Auto Generated Files
+mono_crash.*
+*.pidb
+
+# Rider
+.idea/
+
+# DotNet Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Enable this if you have the project open in Visual Studio Code
+.vscode/
+
+# VS Code directory
+.vscode/*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# build folder
+/bin
+/obj
+*.dll
+
+# Mac OS
+.DS_Store
+
+# Rider
+.idea/
+
+# Docker
+docker-compose.override.yml
+docker-compose.dcproj
+.dockerignore
+
+# DotNet Core
+project.lock.json
+project.fragment.lock.json
+
+# JetBrains Rider
+.idea/
+.idea/*
+
+# Rider files
+.idea/
