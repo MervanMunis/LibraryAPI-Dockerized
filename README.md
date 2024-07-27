@@ -443,6 +443,20 @@ The Dockerfile is used to build a Docker image for the LibraryAPI project. It sp
 ### docker-compose.yml
 The docker-compose.yml file is used to define and run multi-container Docker applications. It specifies the services, networks, and volumes needed to run the LibraryAPI project and the SQL Server database.
 
+## Running the Dockerized Project
+
+1. Pull the Docker Image:
+
+```sh
+docker pull mervanmunis/libraryapi
+```
+
+2. Run the Docker Compose:
+
+```sh
+docker-compose up
+```
+
 ## Running the Non-Dockerized Version
 
 To run the non-dockerized version of the project, follow these steps:
