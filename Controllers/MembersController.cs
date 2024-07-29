@@ -44,11 +44,13 @@ namespace LibraryAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the member.</param>
         /// <returns>The member details.</returns>
-        [HttpGet("{id}")] // GET: api/Members/5
-        [Authorize(Roles = "Librarian")]
-        public async Task<ActionResult<MemberResponse>> GetMember(string id)
+        [HttpGet] // GET: api/Members
+        [Authorize(Roles = "Member")]
+        public async Task<ActionResult<MemberResponse>> GetMember()
         {
-            var result = await _memberService.GetMemberByIdNumberAsync(id);
+            var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var result = await _memberService.GetMemberByIdNumberAsync(memberId);
 
             if (!result.Success)
             {
@@ -100,7 +102,7 @@ namespace LibraryAPI.Controllers
         /// </summary>
         /// <param name="memberRequest">The member update details.</param>
         /// <returns>A success message if the member is updated successfully.</returns>
-        [HttpPut("{id}")] // PUT: api/Members/5
+        [HttpPut] // PUT: api/Members
         [Authorize(Roles = "Member")]
         public async Task<ActionResult<string>> PutMember([FromBody] MemberRequest memberRequest)
         {
