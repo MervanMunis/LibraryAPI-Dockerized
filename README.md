@@ -454,7 +454,7 @@ docker pull mervanmunis/libraryapi
 2. Run the Docker Compose:
 
 ```sh
-docker-compose up
+docker run -d -p 5000:5000 mervanmunis/libraryapi
 ```
 
 ## Running the Non-Dockerized Version
