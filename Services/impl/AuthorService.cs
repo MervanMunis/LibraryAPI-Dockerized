@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LibraryAPI.Data;
 using LibraryAPI.Exceptions;
-using LibraryAPI.Entities.Models;
-using LibraryAPI.Entities.Enums;
 using LibraryAPI.Services.Interfaces;
-using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
 using System.Linq.Expressions;
-using System.Linq;
+using LibraryAPI.Models.Enums;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Services.impl
 {
@@ -163,7 +162,7 @@ namespace LibraryAPI.Services.impl
             existingAuthor.DeathYear = authorRequest.DeathYear;
             existingAuthor.LanguageId = authorRequest.LanguageId;
 
-            _context.Entry(existingAuthor).State = EntityState.Modified;
+            _context.Update(existingAuthor).State = EntityState.Modified;
 
             try
             {
@@ -200,7 +199,7 @@ namespace LibraryAPI.Services.impl
 
             // Update the author's status
             author.AuthroStatus = status;
-            _context.Entry(author).State = EntityState.Modified;
+            _context.Update(author).State = EntityState.Modified;
 
             // Update the status of related books
             var authorBooks = await _context.AuthorBook!
@@ -211,7 +210,7 @@ namespace LibraryAPI.Services.impl
             foreach (var authorBook in authorBooks)
             {
                 authorBook.Book!.BookStatus = status;
-                _context.Entry(authorBook.Book).State = EntityState.Modified;
+                _context.Update(authorBook.Book).State = EntityState.Modified;
             }
 
             try
@@ -251,7 +250,7 @@ namespace LibraryAPI.Services.impl
 
             // Update the author's image file name
             author.ImageFileName = fileName;
-            _context.Entry(author).State = EntityState.Modified;
+            _context.Update(author).State = EntityState.Modified;
 
             try
             {

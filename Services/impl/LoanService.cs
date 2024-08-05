@@ -1,10 +1,8 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -164,7 +162,7 @@ public class LoanService : ILoanService
         await _context.Loans!.AddAsync(newLoan);
 
         bookCopy.BookCopyStatus = Status.Borrowed.ToString();
-        _context.Entry(bookCopy).State = EntityState.Modified;
+        _context.Update(bookCopy).State = EntityState.Modified;
 
         await _context.SaveChangesAsync();
 
@@ -186,7 +184,7 @@ public class LoanService : ILoanService
 
         loan.LoanStatus = loanUpdateRequest.LoanStatus;
 
-        _context.Entry(loan).State = EntityState.Modified;
+        _context.Update(loan).State = EntityState.Modified;
 
         try
         {
@@ -230,12 +228,12 @@ public class LoanService : ILoanService
         loan.ReturnDate = DateTime.Now;
         loan.LoanStatus = Status.Returned.ToString();
 
-        _context.Entry(loan).State = EntityState.Modified;
+        _context.Update(loan).State = EntityState.Modified;
 
         if (loan.BookCopy != null)
         {
             loan.BookCopy.BookCopyStatus = Status.Active.ToString();
-            _context.Entry(loan.BookCopy).State = EntityState.Modified;
+            _context.Update(loan.BookCopy).State = EntityState.Modified;
         }
 
         LoanReturnRequest loanReturnRequest = new LoanReturnRequest()

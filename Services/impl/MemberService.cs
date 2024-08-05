@@ -1,14 +1,12 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.Entities.Models;
-using LibraryAPI.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using LibraryAPI.Entities.Enums;
 using LibraryAPI.Exceptions;
 using LibraryAPI.Services.Interfaces;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.DTOs.Request;
+using LibraryAPI.Models.Enums;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Services.impl
 {
@@ -155,7 +153,7 @@ namespace LibraryAPI.Services.impl
                     existingMember.ApplicationUser!.Email = memberRequest.Email;
                     existingMember.ApplicationUser.UserName = memberRequest.UserName;
                     existingMember.ApplicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(existingMember.ApplicationUser, memberRequest.Password);
-                    _context.Entry(existingMember).State = EntityState.Modified;
+                    _context.Update(existingMember).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
 
                     return ServiceResult<string>.SuccessMessageResult("The member account is reactivated.");
@@ -202,7 +200,7 @@ namespace LibraryAPI.Services.impl
         /// <param name="id">The ID of the member to update.</param>
         /// <param name="memberRequest">The member update details.</param>
         /// <returns>A success message if the member is updated successfully.</returns>
-        public async Task<ServiceResult<bool>> UpdateMemberAsync(string id, MemberRequest memberRequest)
+        public async Task<ServiceResult<bool>> UpdateMemberAsync(string id, UpdateMemberRequest updateMemberRequest)
         {
             var member = await _context.Members!
                 .Include(m => m.ApplicationUser)
@@ -220,21 +218,21 @@ namespace LibraryAPI.Services.impl
 
             // Check for existing user with same email or username
             var existingUser = await _userManager.Users
-                .FirstOrDefaultAsync(u => (u.Email == memberRequest.Email || u.UserName == memberRequest.UserName) && u.Id != user.Id && u.IdNumber != memberRequest.IdNumber);
+                .FirstOrDefaultAsync(u => (u.Email == updateMemberRequest.Email || u.UserName == updateMemberRequest.UserName) && u.Id != user.Id && u.IdNumber != updateMemberRequest.IdNumber);
 
             if (existingUser != null)
             {
                 return ServiceResult<bool>.FailureResult("A member with the same email or username already exists with a different ID number.");
             }
 
-            user.IdNumber = memberRequest.IdNumber;
-            user.Name = memberRequest.Name;
-            user.LastName = memberRequest.LastName;
-            user.Gender = memberRequest.Gender;
-            user.BirthDate = memberRequest.BirthDate;
-            user.UserName = memberRequest.UserName;
-            user.PhoneNumber = memberRequest.PhoneNumber;
-            user.Email = memberRequest.Email;
+            user.IdNumber = updateMemberRequest.IdNumber;
+            user.Name = updateMemberRequest.Name;
+            user.LastName = updateMemberRequest.LastName;
+            user.Gender = updateMemberRequest.Gender;
+            user.BirthDate = updateMemberRequest.BirthDate;
+            user.UserName = updateMemberRequest.UserName;
+            user.PhoneNumber = updateMemberRequest.PhoneNumber;
+            user.Email = updateMemberRequest.Email;
 
             var userResult = await _userManager.UpdateAsync(user);
             if (!userResult.Succeeded)
@@ -242,9 +240,9 @@ namespace LibraryAPI.Services.impl
                 return ServiceResult<bool>.FailureResult(string.Join(", ", userResult.Errors.Select(e => e.Description)));
             }
 
-            member.MemberEducation = memberRequest.EducationalDegree;
+            member.MemberEducation = updateMemberRequest.EducationalDegree;
 
-            _context.Entry(member).State = EntityState.Modified;
+            _context.Update(member).State = EntityState.Modified;
 
             try
             {
@@ -281,7 +279,7 @@ namespace LibraryAPI.Services.impl
 
             member.MemberStatus = status;
 
-            _context.Entry(member).State = EntityState.Modified;
+            _context.Update(member).State = EntityState.Modified;
 
             try
             {

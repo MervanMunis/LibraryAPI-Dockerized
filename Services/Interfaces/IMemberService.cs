@@ -1,10 +1,7 @@
-﻿using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
-using LibraryAPI.Exceptions;
-using System.Reflection.Metadata;
+﻿using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Services.Interfaces
 {
@@ -18,7 +15,7 @@ namespace LibraryAPI.Services.Interfaces
 
         Task<ServiceResult<string>> AddMemberAsync(MemberRequest memberRequest);
 
-        Task<ServiceResult<bool>> UpdateMemberAsync(string id, MemberRequest memberRequest);
+        Task<ServiceResult<bool>> UpdateMemberAsync(string id, UpdateMemberRequest updateMemberRequest);
 
         Task<ServiceResult<bool>> SetMemberStatusAsync(string idNumber, string status);
 

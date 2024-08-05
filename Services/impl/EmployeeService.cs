@@ -1,14 +1,12 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.Entities.Models;
-using LibraryAPI.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using LibraryAPI.Entities.Enums;
 using LibraryAPI.Exceptions;
 using LibraryAPI.Services.Interfaces;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.DTOs.Request;
+using LibraryAPI.Models.Enums;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Services.impl
 {
@@ -220,7 +218,7 @@ namespace LibraryAPI.Services.impl
             employee.EmployeeTitle = employeeRequest.EmployeeTitle;
             employee.DepartmentId = employeeRequest.DepartmentId;
 
-            _context.Entry(employee).State = EntityState.Modified;
+            _context.Update(employee).State = EntityState.Modified;
 
             try
             {
@@ -256,7 +254,7 @@ namespace LibraryAPI.Services.impl
 
             employee.Status = status;
 
-            _context.Entry(employee).State = EntityState.Modified;
+            _context.Update(employee).State = EntityState.Modified;
 
             try
             {

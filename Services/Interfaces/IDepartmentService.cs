@@ -1,6 +1,6 @@
-﻿using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Exceptions;
+﻿using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
 
 namespace LibraryAPI.Services.Interfaces
 {

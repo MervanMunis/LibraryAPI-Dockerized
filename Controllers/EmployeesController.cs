@@ -1,8 +1,7 @@
-﻿using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
+﻿using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -137,7 +136,7 @@ namespace LibraryAPI.Controllers
         /// <returns>A success message if the password is updated successfully.</returns>
         [HttpPatch("{id}/password")] // PATCH: /api/Employees/3/password
         [Authorize(Roles = "Librarian")]
-        public async Task<ActionResult<string>> UpdateEmployeePassword(string id, [FromBody] UpdatePasswordDTO updatePasswordDTO)
+        public async Task<ActionResult<string>> UpdateEmployeePassword(string id, [FromBody] UpdatePasswordRequest updatePasswordDTO)
         {
             var result = await _employeeService.UpdateEmployeePasswordAsync(id, updatePasswordDTO.CurrentPassword, updatePasswordDTO.NewPassword);
 

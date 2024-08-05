@@ -36,15 +36,17 @@ The project is organized into several folders and files to maintain a clean and 
 LibraryAPI/ <br>
 ├── Auth/ <br>
 ├── Controllers/ <br>
-├── DTOs/ <br>
 ├── Data/ <br>
-├── Entities/ <br>
+├── Models/ <br>
+├ ├── Entities <br>
+├ ├── DTOs      <br>
+├ ├── Enums     <br>
 ├── Exceptions/ <br>
 ├── Migrations/ <br>
 ├── Services/ <br>
 ├── LibraryAPI/ <br>
-│ ├── AuthorImages/ <br>
-│ ├── BookImages/ <br>
+├ ├── AuthorImages/ <br>
+├ ├── BookImages/ <br>
 
 ### Key Folders and Files
 - **Auth/**: Contains authentication-related files.
@@ -229,13 +231,47 @@ The LibraryAPI provides various endpoints for managing library resources. Here i
 ## Testing the Project
 To test the project, follow these steps:
 
-### Pull the Docker Image
+### Create a file with name docker-compose.yml in a folder
 
-```sh
-docker pull mervanmunis/libraryapi
+[docker-compose.yml](https://github.com/MervanMunis/LibraryAPI-Dockerized/blob/master/docker-compose.yml)
+
+```yml
+version: '3.4'
+
+services:
+  libraryapi:
+    depends_on:
+      - sqlserver
+    image: mervanmunis/libraryapi:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__LibraryAPIContext=Server=sqlserver;Database=LibraryAPI;User=sa;Password=Master123!;
+      - Jwt__Key=b9T9j54dI4E9kR2lA1V3cG7xN0Q2zY8uJ5R7mS6hP4L8vX9qK2
+      - Jwt__Issuer=LibraryAPI
+      - Jwt__Audience=LibraryAPIUsers
+    networks:
+      - library-network
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Master123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - library-network
+
+networks:
+  library-network:
+    driver: bridge
 ```
 
-### Run the Docker Compose
+### Run the Docker Compose file from the file directory
 
 ```sh
 docker-compose up
@@ -433,54 +469,6 @@ http://localhost:5000/swagger
 
 Not: 
   * PenaltyType Values: None, BookTenDays, BookTwoMonths, BookOneYear, BookLimitless, LibraryTenDays, LibraryTwoMonths, LibraryOneYear, LibraryLimitless
-
-
-## Docker Configuration
-
-### Dockerfile
-The Dockerfile is used to build a Docker image for the LibraryAPI project. It specifies the base image, copies the necessary files, restores dependencies, builds the project, and sets the entry point for the application.
-
-### docker-compose.yml
-The docker-compose.yml file is used to define and run multi-container Docker applications. It specifies the services, networks, and volumes needed to run the LibraryAPI project and the SQL Server database.
-
-## Running the Dockerized Project
-
-1. Pull the Docker Image:
-
-```sh
-docker pull mervanmunis/libraryapi
-```
-
-2. Run the Docker Compose:
-
-```sh
-docker run -d -p 5000:5000 mervanmunis/libraryapi
-```
-
-## Running the Non-Dockerized Version
-
-To run the non-dockerized version of the project, follow these steps:
-
-1. Clone the non-dockerized branch:
-
-```sh 
-git clone -b non-dockerized https://github.com/yourusername/LibraryAPI.git
-```
-
-2. Open the solution in Visual Studio.
-
-3. Update the connection string in appsettings.json to point to your local SQL Server instance.
-
-4. Apply the migrations:
-
-```sh 
-dotnet ef migrations add Initial  
-```
-
-5. Apply the migrations:
-```sh 
-dotnet ef database update
-```
 
 ## Conclusion
 

@@ -12,22 +12,16 @@
 
   <ItemGroup>
     <Compile Remove="AuthorImages\**" />
-    <Compile Remove="Auth\Services\**" />
     <Compile Remove="BookImages\**" />
     <Content Remove="AuthorImages\**" />
-    <Content Remove="Auth\Services\**" />
     <Content Remove="BookImages\**" />
     <EmbeddedResource Remove="AuthorImages\**" />
-    <EmbeddedResource Remove="Auth\Services\**" />
     <EmbeddedResource Remove="BookImages\**" />
     <None Remove="AuthorImages\**" />
-    <None Remove="Auth\Services\**" />
     <None Remove="BookImages\**" />
     <None Remove="LibraryAPI\BookImages\" />
     <None Remove="LibraryAPI\AuthorImages\" />
     <None Remove="Mapper\" />
-    <None Remove="DTOs\Request\" />
-    <None Remove="DTOs\Response\" />
   </ItemGroup>
 
   <ItemGroup>

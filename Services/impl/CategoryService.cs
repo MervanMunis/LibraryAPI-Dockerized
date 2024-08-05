@@ -1,9 +1,9 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -110,7 +110,7 @@ namespace LibraryAPI.Services.impl
             }
 
             existingCategory.Name = categoryRequest.Name;
-            _context.Entry(existingCategory).State = EntityState.Modified;
+            _context.Update(existingCategory).State = EntityState.Modified;
 
             try
             {
@@ -145,7 +145,7 @@ namespace LibraryAPI.Services.impl
             }
 
             category.CategoryStatus = status.ToString();
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Update(category).State = EntityState.Modified;
 
             var subCategories = await _context.SubCategories!
                 .Where(sc => sc.CategoryId == id)
@@ -154,7 +154,7 @@ namespace LibraryAPI.Services.impl
             foreach (var subCategory in subCategories)
             {
                 subCategory.SubCategoryStatus = status.ToString();
-                _context.Entry(subCategory).State = EntityState.Modified;
+                _context.Update(subCategory).State = EntityState.Modified;
 
                 if (status == Status.InActive)
                 {
@@ -166,7 +166,7 @@ namespace LibraryAPI.Services.impl
                     foreach (var bookSubCategory in bookSubCategories)
                     {
                         bookSubCategory.Book!.BookStatus = status.ToString();
-                        _context.Entry(bookSubCategory.Book).State = EntityState.Modified;
+                        _context.Update(bookSubCategory.Book).State = EntityState.Modified;
                     }
                 }
             }

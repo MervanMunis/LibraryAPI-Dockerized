@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -229,7 +227,7 @@ namespace LibraryAPI.Services.impl
             book.PublisherId = bookRequest.PublisherId;
             book.LocationId = bookRequest.LocationId;
 
-            _context.Entry(book).State = EntityState.Modified;
+            _context.Update(book).State = EntityState.Modified;
 
             var existingAuthorBooks = _context.AuthorBook!.Where(authorBook => authorBook.BooksId == id);
             _context.AuthorBook!.RemoveRange(existingAuthorBooks);
@@ -291,7 +289,7 @@ namespace LibraryAPI.Services.impl
             }
 
             book.BookStatus = status;
-            _context.Entry(book).State = EntityState.Modified;
+            _context.Update(book).State = EntityState.Modified;
 
             var bookCopies = await _context.BookCopies!
                 .Where(bc => bc.BookId == id)
@@ -300,7 +298,7 @@ namespace LibraryAPI.Services.impl
             foreach (var bookCopy in bookCopies)
             {
                 bookCopy.BookCopyStatus = status;
-                _context.Entry(bookCopy).State = EntityState.Modified;
+                _context.Update(bookCopy).State = EntityState.Modified;
             }
 
             try
@@ -338,7 +336,7 @@ namespace LibraryAPI.Services.impl
             var filePath = await _fileService.SaveFileAsync(coverImage, "BookImages");
 
             book.CoverFileName = filePath;
-            _context.Entry(book).State = EntityState.Modified;
+            _context.Update(book).State = EntityState.Modified;
 
             try
             {
@@ -400,7 +398,7 @@ namespace LibraryAPI.Services.impl
             if (existingRating != null)
             {
                 existingRating.GivenRating = rating;
-                _context.Entry(existingRating).State = EntityState.Modified;
+                _context.Update(existingRating).State = EntityState.Modified;
                 return ServiceResult<bool>.SuccessMessageResult("The book' rating is updated successfully.");
             }
             else
@@ -421,7 +419,7 @@ namespace LibraryAPI.Services.impl
                 // Recalculate the average rating for the book
                 var ratings = await _context.BookRatings!.Where(br => br.BookId == id).ToListAsync();
                 book.Rating = ratings.Average(br => br.GivenRating);
-                _context.Entry(book).State = EntityState.Modified;
+                _context.Update(book).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 return ServiceResult<bool>.SuccessMessageResult("The rating is given successfully.");
@@ -488,7 +486,7 @@ namespace LibraryAPI.Services.impl
                 foreach (var copy in copiesToRemove)
                 {
                     copy.BookCopyStatus = Status.InActive.ToString();
-                    _context.Entry(copy).State = EntityState.Modified;
+                    _context.Update(copy).State = EntityState.Modified;
                 }
             }
 

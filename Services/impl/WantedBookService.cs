@@ -1,9 +1,8 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

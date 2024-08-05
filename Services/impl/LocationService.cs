@@ -1,9 +1,9 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -104,7 +104,7 @@ namespace LibraryAPI.Services.impl
             existingLocation.AisleCode = locationRequest.AisleCode;
             existingLocation.ShelfNumber = locationRequest.ShelfNumber;
 
-            _context.Entry(existingLocation).State = EntityState.Modified;
+            _context.Update(existingLocation).State = EntityState.Modified;
 
             try
             {
@@ -151,7 +151,7 @@ namespace LibraryAPI.Services.impl
             }
 
             location.LocationStatus = status.ToString();
-            _context.Entry(location).State = EntityState.Modified;
+            _context.Update(location).State = EntityState.Modified;
 
             try
             {

@@ -1,10 +1,5 @@
 ﻿using LibraryAPI.Data;
 using LibraryAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Services.impl
 {

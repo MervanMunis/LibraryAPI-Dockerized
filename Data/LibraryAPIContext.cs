@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using LibraryAPI.Auth;
-using LibraryAPI.Entities.Models;
-using LibraryAPI.Entities.Enums;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Data
 {

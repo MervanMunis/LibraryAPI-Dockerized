@@ -1,9 +1,9 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -113,7 +113,7 @@ namespace LibraryAPI.Services.impl
             existingLanguage.Name = languageRequest.Name;
             existingLanguage.NationalityId = languageRequest.NationalityId;
 
-            _context.Entry(existingLanguage).State = EntityState.Modified;
+            _context.Update(existingLanguage).State = EntityState.Modified;
 
             try
             {
@@ -148,7 +148,7 @@ namespace LibraryAPI.Services.impl
             }
 
             language.LanguageStatus = status;
-            _context.Entry(language).State = EntityState.Modified;
+            _context.Update(language).State = EntityState.Modified;
 
             var bookLanguages = await _context.BookLanguage!
                 .Where(bl => bl.LanguagesId == id)
@@ -158,7 +158,7 @@ namespace LibraryAPI.Services.impl
             foreach (var bookLanguage in bookLanguages)
             {
                 bookLanguage.Book!.BookStatus = status;
-                _context.Entry(bookLanguage.Book).State = EntityState.Modified;
+                _context.Update(bookLanguage.Book).State = EntityState.Modified;
             }
 
             try

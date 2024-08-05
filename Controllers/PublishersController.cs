@@ -1,10 +1,10 @@
-﻿using LibraryAPI.Entities.Models;
-using Microsoft.AspNetCore.Mvc;
-using LibraryAPI.Entities.Enums;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using LibraryAPI.Services.Interfaces;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.DTOs.Request;
+using LibraryAPI.Models.Enums;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 
 namespace LibraryAPI.Controllers
 {

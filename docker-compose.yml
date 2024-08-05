@@ -2,7 +2,9 @@
 
 services:
   libraryapi:
-    image: libraryapi
+    depends_on:
+      - sqlserver
+    image: mervanmunis/libraryapi:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,7 +16,8 @@ services:
       - Jwt__Key=b9T9j54dI4E9kR2lA1V3cG7xN0Q2zY8uJ5R7mS6hP4L8vX9qK2
       - Jwt__Issuer=LibraryAPI
       - Jwt__Audience=LibraryAPIUsers
-
+    networks:
+      - library-network
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
@@ -22,3 +25,9 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    networks:
+      - library-network
+
+networks:
+  library-network:
+    driver: bridge

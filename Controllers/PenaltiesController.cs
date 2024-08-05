@@ -1,11 +1,8 @@
-﻿using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Models;
+﻿using LibraryAPI.Models.DTOs.Response;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Controllers
 {

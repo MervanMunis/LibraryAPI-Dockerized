@@ -1,13 +1,11 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryAPI.Services.impl
 {
@@ -137,7 +135,7 @@ namespace LibraryAPI.Services.impl
             existingPublisher.Email = publisherRequest.Email;
             existingPublisher.ContactPerson = publisherRequest.ContactPerson;
 
-            _context.Entry(existingPublisher).State = EntityState.Modified;
+            _context.Update(existingPublisher).State = EntityState.Modified;
 
             try
             {
@@ -177,7 +175,7 @@ namespace LibraryAPI.Services.impl
             }
 
             publisher.PublisherStatus = status;
-            _context.Entry(publisher).State = EntityState.Modified;
+            _context.Update(publisher).State = EntityState.Modified;
 
             try
             {

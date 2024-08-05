@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Services.Interfaces
+﻿namespace LibraryAPI.Services.Interfaces
 {
     public interface IFileService
     {

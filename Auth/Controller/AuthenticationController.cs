@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using LibraryAPI.Auth;
 using LibraryAPI.Auth.Models;
 using Microsoft.AspNetCore.Authorization;
-using LibraryAPI.Entities.Models;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Auth.Services;
+using LibraryAPI.Models.DTOs.Request;
 
 namespace LibraryAPI.Auth.Controller
 {
@@ -17,12 +18,14 @@ namespace LibraryAPI.Auth.Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, IAuthenticationService authenticationService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _authenticationService = authenticationService;
             _configuration = configuration;
         }
 
@@ -108,6 +111,30 @@ namespace LibraryAPI.Auth.Controller
                 }
                 return RedirectToAction(nameof(Login));
             }
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPasswordToken([FromBody] ForgotPasswordRequest forgotPasswordRequest)
+        {
+            var result = await _authenticationService.ForgotPasswordAsync(forgotPasswordRequest);
+            if (!result.Success)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.Data); // You should ideally send an email with the token
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPasswordToken([FromBody] ResetPasswordRequest resetPasswordRequest)
+        {
+            var result = await _authenticationService.ResetPasswordAsync(resetPasswordRequest);
+            if (!result.Success)
+            {
+                return BadRequest(result.ErrorMessage);
+            }
+
+            return Ok(result.SuccessMessage);
         }
 
         [Authorize]

@@ -1,8 +1,7 @@
-﻿using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
+﻿using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -104,11 +103,11 @@ namespace LibraryAPI.Controllers
         /// <returns>A success message if the member is updated successfully.</returns>
         [HttpPut] // PUT: api/Members
         [Authorize(Roles = "Member")]
-        public async Task<ActionResult<string>> PutMember([FromBody] MemberRequest memberRequest)
+        public async Task<ActionResult<string>> PutMember([FromBody] UpdateMemberRequest updateMemberRequest)
         {
             var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = await _memberService.UpdateMemberAsync(memberId, memberRequest);
+            var result = await _memberService.UpdateMemberAsync(memberId, updateMemberRequest);
 
             if (!result.Success)
             {
@@ -165,7 +164,7 @@ namespace LibraryAPI.Controllers
         /// <returns>A success message if the password is updated successfully.</returns>
         [HttpPatch("password")] // PATCH: api/Members/5/password
         [Authorize(Roles = "Member")]
-        public async Task<ActionResult<string>> UpdateMemberPassword([FromBody] UpdatePasswordDTO updatePasswordDTO)
+        public async Task<ActionResult<string>> UpdateMemberPassword([FromBody] UpdatePasswordRequest updatePasswordDTO)
         {
             var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

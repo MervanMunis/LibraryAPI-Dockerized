@@ -1,13 +1,10 @@
 ﻿using LibraryAPI.Data;
-using LibraryAPI.DTOs;
-using LibraryAPI.DTOs.Request;
-using LibraryAPI.DTOs.Response;
-using LibraryAPI.Entities.Models;
 using LibraryAPI.Exceptions;
+using LibraryAPI.Models.DTOs.Request;
+using LibraryAPI.Models.DTOs.Response;
+using LibraryAPI.Models.Entities;
 using LibraryAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace LibraryAPI.Services.impl
 {
@@ -98,7 +95,7 @@ namespace LibraryAPI.Services.impl
             }
 
             department.Name = departmentRequest.Name;
-            _context.Entry(department).State = EntityState.Modified;
+            _context.Update(department).State = EntityState.Modified;
 
             try
             {

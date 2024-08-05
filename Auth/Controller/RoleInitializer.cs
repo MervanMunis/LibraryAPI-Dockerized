@@ -1,11 +1,10 @@
-﻿using System;
-using LibraryAPI.Entities.Enums;
-using LibraryAPI.Entities.Models;
+﻿using LibraryAPI.Models.Entities;
+using LibraryAPI.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace LibraryAPI.Auth.Controller
 {
-	public class RoleInitializer
+    public class RoleInitializer
 	{
         public static async Task InitializeAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {

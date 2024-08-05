@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Google;
 using LibraryAPI.Data;
 using LibraryAPI.Services.impl;
 using Microsoft.AspNetCore.Identity;
-using LibraryAPI.Entities.Models;
 using Microsoft.OpenApi.Models;
 using LibraryAPI.Auth.Controller;
 using LibraryAPI.Services.Interfaces;
@@ -11,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
+using LibraryAPI.Models.Entities;
+using LibraryAPI.Auth.Services;
 
 namespace LibraryAPI
 {
@@ -98,6 +99,9 @@ namespace LibraryAPI
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<IWantedBookService, WantedBookService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
 
             // Add Swagger configuration
             builder.Services.AddSwaggerGen(options =>
