@@ -6,6 +6,11 @@ Welcome to the LibraryAPI project! This project is a comprehensive library manag
 ## Project Overview
 The LibraryAPI project is a RESTful API built using ASP.NET Core. It provides endpoints for managing library resources such as books, authors, categories, and members. The project also includes features for handling loans, calculating penalties, and managing user roles and authentication. The API is designed to be used by different roles such as librarians, employees, and members, each with specific permissions and capabilities.
 
+### Note: 
+   * You can find the non-dockerized project from [LibraryAPI-Basic](https://github.com/MervanMunis/LibraryAPI-Basic.git)
+
+   * Also, you can see my docker repository from [Docker Hub](https://github.com/MervanMunis/LibraryAPI-Basic.git)
+
 ## Technologies Used
 This project utilizes a variety of technologies to ensure a robust and efficient system. Below is a detailed explanation of the key technologies used:
 
